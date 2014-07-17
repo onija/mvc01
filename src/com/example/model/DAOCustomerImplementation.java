@@ -37,27 +37,24 @@ public class DAOCustomerImplementation implements DAOCustomer {
 	@Override
 	public void addCustomer(Customer c) {
 		if (customers.size() != 0) {
-			c.setId(customers.get(customers.size()-1).id + 1);
+			c.setId(customers.get(customers.size() - 1).id + 1);
 		}
 		customers.add(c);
-		ObjectOutputStream oos;
-		try {
-			oos = new ObjectOutputStream(new FileOutputStream("customers.ser"));
-			oos.writeObject(customers);
-			oos.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		saveCustomers();
 	}
 
 	@Override
 	public void removeCustomer(int id) {
-		int find_id =0,i;
-		for (i = 0; i < customers.size();i++) {
-			if (customers.get(i).id == id) find_id = i; 
+		int find_id = 0, i;
+		for (i = 0; i < customers.size(); i++) {
+			if (customers.get(i).id == id)
+				find_id = i;
 		}
 		customers.remove(find_id);
+		saveCustomers();
+	}
+
+	private void saveCustomers() {
 		ObjectOutputStream oos;
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream("customers.ser"));
@@ -66,6 +63,7 @@ public class DAOCustomerImplementation implements DAOCustomer {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 }

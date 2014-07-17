@@ -1,6 +1,7 @@
 package com.example.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -17,7 +18,8 @@ import com.example.model.DAOCustomerImplementation;
 /**
  * Servlet implementation class CustomerController
  */
-@WebServlet("/CustomerController")
+// @WebServlet("/CustomerController")
+@WebServlet(name = "CustomerController", urlPatterns = { "/controller" })
 public class CustomerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -42,7 +44,7 @@ public class CustomerController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		List<Customer> customers = null;
+		List<Customer> customers = new ArrayList<Customer>();
 		if (request.getParameter("name") == null) {
 			customers = cm.getAllCustomers();
 			request.setAttribute("customers", customers);
@@ -50,9 +52,23 @@ public class CustomerController extends HttpServlet {
 					.getRequestDispatcher("customers.jsp");
 			view.forward(request, response);
 		} else {
-			
+			cm.addCustomer(new Customer(0, request.getParameter("name"),
+					request.getParameter("surname"), request
+							.getParameter("address"), request
+							.getParameter("phone")));
+			customers = cm.getAllCustomers();
+			request.setAttribute("customers", customers);
+			RequestDispatcher view = request
+					.getRequestDispatcher("customers.jsp");
+			view.forward(request, response);
 		}
 
+//		customers
+//				.add(new Customer(0, "Jan", "Kowalski", "Wroclaw", "73567456"));
+//
+//		request.setAttribute("customers", customers);
+//		RequestDispatcher view = request.getRequestDispatcher("customers.jsp");
+//		view.forward(request, response);
 	}
 
 }

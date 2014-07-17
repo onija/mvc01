@@ -4,15 +4,15 @@
 <body>
 	<h2>Coffee Advisor Output</h2>
 
-	<form method="POST" action="CustomerController.do">
-		<input type="text" name="name" size="20">
-		<input type="text" name="surname" size="20">
-		<input type="text" name="address" size="20">
-		<input type="text" name="phone" size="20">
+	<form method="POST" action="controller">
+		Imie: <input type="text" name="name" size="20"><br/>
+		Nazwisko: <input type="text" name="surname" size="20"><br/>
+		Adres: <input type="text" name="address" size="20"><br/>
+		Telefon: <input type="text" name="phone" size="20"><br/>
 		<input type="Submit" name="Zapisz" />
 	</form>
 	<br />
-	<c:forEach var="type" items="${types}">
+	<c:forEach var="type" items="${customers}">
 		<c:out value="${type}" />
 		<br />
 	</c:forEach>

@@ -22,4 +22,10 @@ public class Customer implements Serializable {
 	public Customer() {
 	}
 
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", surname=" + surname
+				+ ", address=" + address + ", phone=" + phone + "]";
+	}
+
 }

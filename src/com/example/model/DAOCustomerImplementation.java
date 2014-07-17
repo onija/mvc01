@@ -30,6 +30,7 @@ public class DAOCustomerImplementation implements DAOCustomer {
 
 	@Override
 	public void addCustomer(Customer c) {
+		customers.add(c);
 		ObjectOutputStream oos;
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream("customers.ser"));

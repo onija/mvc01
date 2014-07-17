@@ -1,5 +1,6 @@
 package com.example.model;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,13 +14,17 @@ public class DAOCustomerImplementation implements DAOCustomer {
 	private List<Customer> customers = new ArrayList<>();
 
 	public DAOCustomerImplementation() {
-		ObjectInputStream ois;
-		try {
-			ois = new ObjectInputStream(new FileInputStream("customers.ser"));
-			customers = (List<Customer>) ois.readObject();
-			ois.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+		File fc = new File("customers.ser");
+		if (fc.exists()) {
+			ObjectInputStream ois;
+			try {
+				ois = new ObjectInputStream(
+						new FileInputStream("customers.ser"));
+				customers = (List<Customer>) ois.readObject();
+				ois.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class DAOCustomerImplementation implements DAOCustomer {
@@ -35,7 +36,9 @@ public class DAOCustomerImplementation implements DAOCustomer {
 
 	@Override
 	public void addCustomer(Customer c) {
-		c.setId(customers.size());
+		if (customers.size() != 0) {
+			c.setId(customers.get(customers.size()-1).id + 1);
+		}
 		customers.add(c);
 		ObjectOutputStream oos;
 		try {
@@ -50,7 +53,11 @@ public class DAOCustomerImplementation implements DAOCustomer {
 
 	@Override
 	public void removeCustomer(int id) {
-		customers.remove(id);
+		int find_id =0,i;
+		for (i = 0; i < customers.size();i++) {
+			if (customers.get(i).id == id) find_id = i; 
+		}
+		customers.remove(find_id);
 		ObjectOutputStream oos;
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream("customers.ser"));

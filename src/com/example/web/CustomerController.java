@@ -45,30 +45,22 @@ public class CustomerController extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		List<Customer> customers = new ArrayList<Customer>();
-		if (request.getParameter("name") == null) {
-			customers = cm.getAllCustomers();
-			request.setAttribute("customers", customers);
-			RequestDispatcher view = request
-					.getRequestDispatcher("customers.jsp");
-			view.forward(request, response);
-		} else {
+		
+		if (request.getParameter("id") != null) {
+			cm.removeCustomer(Integer.parseInt(request.getParameter("id")));
+		}
+		
+		if (request.getParameter("name") != null) {
 			cm.addCustomer(new Customer(0, request.getParameter("name"),
 					request.getParameter("surname"), request
 							.getParameter("address"), request
 							.getParameter("phone")));
-			customers = cm.getAllCustomers();
-			request.setAttribute("customers", customers);
-			RequestDispatcher view = request
-					.getRequestDispatcher("customers.jsp");
-			view.forward(request, response);
 		}
-
-//		customers
-//				.add(new Customer(0, "Jan", "Kowalski", "Wroclaw", "73567456"));
-//
-//		request.setAttribute("customers", customers);
-//		RequestDispatcher view = request.getRequestDispatcher("customers.jsp");
-//		view.forward(request, response);
+		
+		customers = cm.getAllCustomers();
+		request.setAttribute("customers", customers);
+		RequestDispatcher view = request.getRequestDispatcher("customers.jsp");
+		view.forward(request, response);
 	}
 
 }

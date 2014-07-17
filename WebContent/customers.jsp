@@ -13,7 +13,8 @@
 	</form>
 	<br />
 	<c:forEach var="type" items="${customers}">
-		<c:out value="${type}" />
+		<c:out value="${type.name}" /> <c:out value="${type.surname}" /> <c:out value="${type.address}" /> <c:out value="${type.phone}" /> 
+		<a href="controller?id=${type.id}" >usun</a>
 		<br />
 	</c:forEach>
 </body>

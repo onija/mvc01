@@ -35,6 +35,7 @@ public class DAOCustomerImplementation implements DAOCustomer {
 
 	@Override
 	public void addCustomer(Customer c) {
+		c.setId(customers.size());
 		customers.add(c);
 		ObjectOutputStream oos;
 		try {
@@ -43,6 +44,19 @@ public class DAOCustomerImplementation implements DAOCustomer {
 			oos.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void removeCustomer(int id) {
+		customers.remove(id);
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream("customers.ser"));
+			oos.writeObject(customers);
+			oos.close();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

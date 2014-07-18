@@ -18,24 +18,6 @@ public class DAODataImplementation implements DAOData {
 	private List<Customer> customers = new ArrayList<>();
 	private List<Trip> trips = new ArrayList<>();
 
-	private void readData(String fileName) {
-		File fc = new File(fileName);
-		if (fc.exists()) {
-			ObjectInputStream ois;
-			try {
-				ois = new ObjectInputStream(new FileInputStream(fileName));
-				if (fileName.equals(customersFile)) {
-					customers = (List<Customer>) ois.readObject();
-				} else {
-					trips = (List<Trip>) ois.readObject();
-				}
-				ois.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	public DAODataImplementation() {
 		readData(customersFile);
 		readData(tripsFile);
@@ -66,22 +48,6 @@ public class DAODataImplementation implements DAOData {
 		saveData(customersFile);
 	}
 
-	private void saveData(String fileName) {
-		ObjectOutputStream oos;
-		try {
-			oos = new ObjectOutputStream(new FileOutputStream(fileName));
-			if (fileName.equals(customersFile)) {
-				oos.writeObject(customers);
-			} else {
-				oos.writeObject(trips);
-			}
-			oos.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
 	@Override
 	public List<Trip> getAllTrips() {
 		return trips;
@@ -107,4 +73,36 @@ public class DAODataImplementation implements DAOData {
 		saveData(tripsFile);
 	}
 
+	private void saveData(String fileName) {
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(fileName));
+			if (fileName.equals(customersFile)) {
+				oos.writeObject(customers);
+			} else {
+				oos.writeObject(trips);
+			}
+			oos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void readData(String fileName) {
+		File fc = new File(fileName);
+		if (fc.exists()) {
+			ObjectInputStream ois;
+			try {
+				ois = new ObjectInputStream(new FileInputStream(fileName));
+				if (fileName.equals(customersFile)) {
+					customers = (List<Customer>) ois.readObject();
+				} else {
+					trips = (List<Trip>) ois.readObject();
+				}
+				ois.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
